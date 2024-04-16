@@ -1,0 +1,21 @@
+{
+  "name": "adavanced",
+  "version": "1.0.0",
+  "description": "",
+  "main": "session_cookies.js",
+  "type": "module",
+  "scripts": {
+    "start": "node AdavancedBasics.js",
+    "dev": "nodemon AdavancedBasics.js",
+    "buid": "npm i"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
+  }
+}

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Kode+Mono:wght@400..700&family=Raleway:ital,wght@0,100..900;1,100..900&family=VT323&display=swap");
+* {
+  box-sizing: border-box;
+  font-family: "Raleway", sans-serif;
+  transition: cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.4s;
+  text-transform: lowercase;
+}
+body {
+  height: auto;
+  width: auto;
+  margin: 0;
+  overflow-x: hidden;
+}
+.meg-nav {
+  width: 100%;
+  background-color: #444;
+  overflow: hidden;
+}
+h2 {
+  height: 100%;
+  width: 100%;
+  padding: 3rem;
+  text-align: center;
+  background-image: linear-gradient(
+    red 50%,
+    red 50%,
+    red 85%,
+    red 85%,
+    red 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 50%;
+  animation: underline 1s cubic-bezier(0.645, 0.045, 0.355, 1) 0.5s forwards;
+  color: white;
+}
+
+@keyframes underline {
+  to {
+    background-size: 100% 100%;
+  }
+}
+
+.meg-nav a {
+  display: block;
+  padding: 1rem;
+  float: left;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+
+.meg-dd {
+  overflow: hidden;
+}
+
+.meg-dd .meg-btn {
+  padding: 1rem;
+  outline: none;
+  border: none;
+  background-color: inherit;
+  color: white;
+  font-size: inherit;
+}
+
+.meg-nav a:hover,
+.meg-dd:hover .meg-btn {
+  background-image: linear-gradient(
+    red 50%,
+    red 50%,
+    red 85%,
+    red 85%,
+    red 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 50%;
+  animation: underline cubic-bezier(0.455, 0.03, 0.515, 0.955) 0.4s forwards
+    0.3s;
+  color: white;
+}
+
+.meg-content {
+  width: 100%;
+  left: 0;
+  display: none;
+  position: absolute;
+  background-color: floralwhite;
+  z-index: 1;
+}
+
+.meg-content .meg-header {
+  padding: 1rem;
+  border-bottom: red solid 14px;
+  background: gainsboro;
+  color: red;
+}
+
+.meg-dd:hover .meg-content {
+  display: block;
+}
+
+.meg-column {
+  height: 250px;
+  width: 50%;
+  padding: 1rem;
+  float: left;
+  background-color: gainsboro;
+}
+
+.meg-column a {
+  padding: 1rem;
+  float: none;
+  display: block;
+  color: black;
+  text-decoration: none;
+  text-align: left;
+}
+
+.meg-column a:hover {
+  border-bottom: black solid 1px;
+  background-color: lightgray;
+  color: white;
+}
+
+.meg-row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.center {
+  display: block;
+  margin: auto;
+  width: max-content;
+}
+
+@media screen and (max-width: 900px) {
+  .meg-column {
+    height: auto;
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .meg-column {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.pg-main {
+  margin: auto;
+  max-width: 1000px;
+}
+
+h1 {
+  font-size: 50px;
+  text-align: center;
+}
+
+.pg-row {
+  margin: 8px -1rem;
+}
+
+.pg-row,
+.pg-row > .pg-column {
+  padding: 8px;
+}
+
+.pg-column {
+  width: 25%;
+  float: left;
+}
+
+.pg-row:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+
+.pg-content {
+  padding: 0.4rem;
+  background-color: white;
+}
+
+.pg-content img {
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .pg-column {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .pg-column {
+    width: 100%;
+  }
+}
+/**/
+
+.frame-container {
+  margin: 1rem;
+  display: grid;
+  place-items: center;
+}
+.frame {
+  display: grid;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+  grid-template-columns: -webkit-max-content auto;
+  grid-template-columns: max-content auto;
+  grid-template-rows: auto -webkit-max-content;
+  grid-template-rows: auto max-content;
+  background: #333
+    url("https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/cosmos-flower-on-black-background-mike-hill.jpg")
+    center;
+  background-size: cover;
+  color: white;
+  width: 100%;
+  padding: 2rem;
+}
+.frame:before,
+.frame:after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid white;
+}
+.frame:before {
+  grid-row: 1/2;
+  border-right: none;
+  border-bottom: none;
+}
+.frame:after {
+  grid-row: 1 / span 2;
+  border-left: none;
+}
+
+p {
+  padding: 1rem;
+  background: inherit;
+  border-right: 3px solid #000;
+}
+
+    </style>
+</head>
+<body>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <h1><%= age %></h1>
+    <div class="meg-nav">
+        <div class="center">
+            <a href="#home">Home</a>
+            <a href="#news">News</a>
+            <a href="#news"><%= age %></a>
+            <div class="meg-dd">
+                <button class="meg-btn">
+                    Mega Dropdown Menu
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="meg-content">
+                    <div class="meg-header">
+                        <h2>Mega Dropdown Menu</h2>
+                    </div>
+                    <div class="meg-row">
+                        <!--Column 1-->
+                        <div class="meg-column">
+                            <h3>Category 1</h3>
+                            <a href="#link1">Link 1</a>
+                            <a href="#link2">Link 2</a>
+                            <a href="#link3">Link 3</a>
+                        </div>
+    
+                        <!--Column 2-->
+                        <div class="meg-column">
+                            <h3>Category 2</h3>
+                            <a href="#link4">Link 4</a>
+                            <a href="#link5">Link 5</a>
+                            <a href="#link6">Link 6</a>
+                        </div>
+    
+                        <!--Column 3-->
+                        <div class="meg-column">
+                            <h3>Category 3</h3>
+                            <a href="#link7">Link 7</a>
+                            <a href="#link8">Link 8</a>
+                            <a href="#link9">Link 9</a>
+                        </div>
+    
+                        <!--Column 4-->
+                        <div class="meg-column">
+                            <h3>Category 3</h3>
+                            <a href="#link10">Link 10</a>
+                            <a href="#link11">Link 11</a>
+                            <a href="#link12">Link 12</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="pg-main">
+        <h1>anna.com</h1>
+        <hr />
+    
+        <h2>ABOUT</h2>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae
+            accusantium mollitia sit nisi et asperiores vitae veritatis corrupti
+            iure tempore fuga porro totam, ipsam cupiditate sapiente quos sint amet
+            voluptatibus.
+        </p>
+    
+        <div class="pg-row">
+            <div class="pg-column">
+                <div class="pg-content">
+                    <div class="frame-container">
+                        <div class="frame">
+                            <h3 contenteditable="true">HERE<br />IS A BORDER</h3>
+                        </div>
+                    </div>
+                    <h3>Image Caption</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                        necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor
+                        sit amet, tempor prodesset eos no.
+                    </p>
+                </div>
+            </div>
+            <div class="pg-column">
+                <div class="pg-content">
+                    <div class="frame-container">
+                        <div class="frame">
+                            <h3 contenteditable="true">HERE<br />IS A BORDER</h3>
+                        </div>
+                    </div>
+                    <h3>Image Caption</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                        necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor
+                        sit amet, tempor prodesset eos no.
+                    </p>
+                </div>
+            </div>
+            <div class="pg-column">
+                <div class="pg-content">
+                    <div class="frame-container">
+                        <div class="frame">
+                            <h3 contenteditable="true">HERE<br />IS A BORDER</h3>
+                        </div>
+                    </div>
+                    <h3>Image Caption</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                        necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor
+                        sit amet, tempor prodesset eos no.
+                    </p>
+                </div>
+            </div>
+            <div class="pg-column">
+                <div class="pg-content">
+                    <div class="frame-container">
+                        <div class="frame">
+                            <h3 contenteditable="true">HERE<br />IS A BORDER</h3>
+                        </div>
+                    </div>
+                    <h3>Image Caption</h3>
+                    <p>
+                        Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                        necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor
+                        sit amet, tempor prodesset eos no.
+                    </p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="pg-content">
+            <div class="frame-container">
+                <div class="frame">
+                    <h2 contenteditable="true">HERE<br />IS A BORDER</h2>
+                </div>
+            </div>
+            <h3>Some Other Work</h3>
+            <p>
+                Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit
+                amet, tempor prodesset eos no.
+            </p>
+            <p>
+                Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus
+                necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit
+                amet, tempor prodesset eos no.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
