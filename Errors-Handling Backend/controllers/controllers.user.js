@@ -13,7 +13,7 @@ export const resisteruser = async(req, res, next) => {
 
         await User.create({ name, email, password: hashPass });
         
-        res.status(200).json({
+        res.status(202).json({
             message: "user resister"
         });
     } catch (error) {
@@ -24,17 +24,21 @@ export const resisteruser = async(req, res, next) => {
 
 export const loginUser= async(req,res,next)=>{
     try {
-        const {email,password} = req.body
-        const user = await User.findOne({email})
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
+        
         if (!user) return next(errorHandler(400, "user is not exist"));
-    
-        const isPasswordMatch = bcryptjs.compareSync(password, user.password)
+        const isPasswordMatch = bcryptjs.compareSync(password, user.password);
 
         if (!isPasswordMatch) return next(errorHandler(404, "Wromg Password")); 
         res.status(202).json({
             message:`Welcome ,${user.name}`
         })
     } catch (error) {
-        next(error);
+       throw next(error);
     }
 }
+
+
+
+

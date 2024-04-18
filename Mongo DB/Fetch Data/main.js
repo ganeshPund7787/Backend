@@ -1,6 +1,6 @@
 import express from "express" 
 import BodyParse from "body-parser"
-import {MongoConnect, User} from "./Mongo.js"
+import { MongoConnect, User } from "./Mongo.js"
 const app = express();
 
 MongoConnect();
@@ -16,7 +16,7 @@ app.get("/", (req, res) => {
 app.post("/API/v1/register", async (req, res) => {
     const { username, email, password, password2 } = req.body; 
     await User.create({
-        username, email, password, password2 
+        username, email, password 
     })
     console.log(req.body);
     console.log(req.body.email);

@@ -1,5 +1,5 @@
 import express from "express"
-import { LoginUser, UpdateManyUser, UpdateUser, home, removeuser, resister,  } from "../controllers/controller.user.js";
+import { LoginUser, UpdateManyUser, UpdateUser, home, loginuser, removeuser, resister,  } from "../controllers/controller.user.js";
 
 const routes = express.Router();
 
@@ -12,8 +12,10 @@ routes.put("/updateMany", UpdateManyUser)
 
 
 // User login
-
 routes.post("/login", LoginUser);
+
+routes.post("/loginuser", loginuser);
+
 export default routes
 
 

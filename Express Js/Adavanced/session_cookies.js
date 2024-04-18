@@ -44,7 +44,7 @@ app.get("/check", (req, res) => {
 
 
 
-app.get("/dele", async(req, res) => {
+app.get("/delete", async(req, res) => {
     if (req.session.SessionName == true) {
         const sess = await req.sessionID();
         console.log(sess);
@@ -66,51 +66,46 @@ app.get("/dele", async(req, res) => {
 
 
 
+app.get("/", (req, res) => {
+    req.session.SessionName = true;
+    res.send("hey");
+});
+
+app.get("/:username", (req, res) => {
+    res.json(`Hellow ${req.params.username} welcome to our website`);
+});
+
+
+app.get("/", (req, res) => {
+    res.cookie("CookieName", 35);
+    res.send("Home page")
+});
+
+app.get("/readcookie", (req, res) => {
+    console.log(req.cookies.CookieName);
+    res.send("Read Cookie");
+});
+
+app.get("/deletecookie", (req, res) => {
+    console.log(res.clearCookie.CookieName);
+    res.send("Delete cookie");
+});
 
 
 
 
+app.get("/checkban", (req, res) => {
+    console.log("Check Kiya consle dekho");
+    if(req.session.SessionName == true) res.send("You are baned"); 
+    else res.send(req.session);
+});
 
-// app.get("/", (req, res) => {
-//     req.session.SessionName = true;
-//     res.send("hey");
-// });
-
-// app.get("/:username", (req, res) => {
-//     res.json(`Hellow ${req.params.username} welcome to our website`);
-// });
-
-
-// app.get("/", (req, res) => {
-//     res.cookie("CookieName", 35);
-//     res.send("Home page")
-// });
-
-// app.get("/readcookie", (req, res) => {
-//     console.log(req.cookies.CookieName);
-//     res.send("Read Cookie");
-// });
-
-// app.get("/deletecookie", (req, res) => {
-//     console.log(res.clearCookie.CookieName);
-//     res.send("Delete cookie");
-// });
-
-
-
-
-// app.get("/checkban", (req, res) => {
-//     console.log("Check Kiya consle dekho");
-//     if(req.session.SessionName == true) res.send("You are baned"); 
-//     else res.send(req.session);
-// });
-
-// app.get("/removeban", (req, res) => {
-//     req.session.destroy((err) => {
-//         if (err) throw err;
-//         else res.send("You Are Remove Ban");
-//     })
-// })
+app.get("/removeban", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) throw err;
+        else res.send("You Are Remove Ban");
+    })
+})
 app.listen(4000);
 
 

@@ -1,6 +1,6 @@
-import express from "express"
-import mongoose from "mongoose"
+
 import { User } from "../model/model.user.js";
+import { errorHandlers } from "../utils/error.Handler.js";
 
 export const home = (req, res) => {
     res.send("<h1>Home Page</h1>");
@@ -71,3 +71,24 @@ export const LoginUser = async (req, res) => {
 }
 
 
+export const loginuser = async(req, res, next) => {
+    try {
+            const { email, password } = req.body;
+    
+    const isUserExist = await User.findOne({ email });
+     
+    if (!isUserExist)      
+        return next(errorHandlers(404, "User Not Exixst"))
+    
+
+    if (isUserExist.password != password)
+        return next(errorHandlers(400, "Incorrect username or password "));
+
+
+    res.status(202).json({
+        message: "User login succesfuly"
+    })
+    } catch (error) {
+        next(error);
+    }
+}
