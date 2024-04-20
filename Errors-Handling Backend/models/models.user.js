@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    name:{
+    name: {
         type: String,
         required: true
     },
@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 
-export const User = new mongoose.model("passdecrypt", userSchema);
+export const User = new mongoose.model("User", userSchema);
 
 
 

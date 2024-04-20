@@ -1,9 +1,12 @@
 import express from "express"
-import { loginUser, resisteruser } from "../controllers/controllers.user.js";
+import { loginGet, loginUser, logoutUser, registerGet, resisteruser } from "../controllers/controllers.user.js";
 
 const routes = express.Router();
 
-routes.post("/resister", resisteruser);
+routes.get("/register", registerGet);
+routes.post("/register", resisteruser);
+routes.get("/login", loginGet);
 routes.post("/login", loginUser);
+routes.get("/logout", logoutUser);
 
 export default routes;
