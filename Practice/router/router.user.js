@@ -1,23 +1,13 @@
 import express from "express"
-import { LoginUser, UpdateManyUser, UpdateUser, home, loginuser, removeuser, resister,  } from "../controllers/controller.user.js";
-
+import { login, loginHomePage, loginUser, logout, register } from "../controllers/controller.user.js";
+import { isAuthenticate } from "../middleware/auth.js";
 const routes = express.Router();
 
+routes.post("/register", register);
+routes.post("/login", login);
 
-routes.get("/", home);
-routes.post("/resister", resister);
-routes.delete("/removeuser", removeuser);
-routes.put("/updateuser", UpdateUser);
-routes.put("/updateMany", UpdateManyUser)
+routes.get("/loginuser", loginUser)
+routes.get("/loginHomePage", isAuthenticate, loginHomePage);
+routes.get("/logout", logout);
 
-
-// User login
-routes.post("/login", LoginUser);
-
-routes.post("/loginuser", loginuser);
-
-export default routes
-
-
-
-
+export default routes;

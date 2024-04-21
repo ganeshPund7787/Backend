@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
         require: true,
     },
     email: {
-        // unique: true,
+        unique: true,
         type: String,
         require: true,
     },
@@ -14,13 +14,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         require: true,
     },
-    // profileUrl: {
-    //     type: String,
-    //     require: true,
-    //     default: "imgURL"
-    // }
 }, { timestamps: true });
 
 
-export const User = new mongoose.model("User", UserSchema);
+export const User = new mongoose.model("UserData", UserSchema);
 

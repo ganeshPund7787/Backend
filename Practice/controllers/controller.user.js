@@ -1,100 +1,63 @@
-
 import { User } from "../model/model.user.js";
-import { errorHandlers } from "../utils/error.Handler.js";
+import { errorHandler } from "../utils/error.Handler.js";
+import bcryptjs from "bcryptjs"
+import jwt from "jsonwebtoken"
 
-export const home = (req, res) => {
-    res.send("<h1>Home Page</h1>");
-}
-
-export const resister = async (req, res) => {
-    const { name, email, password } = req.body;
-    if (User.find({ email })) return res.status(400).json({
-        success: false,
-        meassage: "User Already Resister"
-    })
-
-    const UserResister = await User({ name, email, password });
-    await UserResister.save();
-    res.status(201).json({
-        meassage: "User Created"
-    });
-    const FindUser = User.find();
-    console.log(FindUser);
-}
-
-export const removeuser = async (req, res) => {
-    await User.findOneAndDelete({ name: "fdhfghfg" });
-    // const data = User.find();
-    res.status(308).json({
-        success: true,
-        // data
-    });
-}
-
-export const UpdateUser = async (req, res) => {
-    await User.findOneAndUpdate({ name: "ganu don" }, { $set: { name: "Ganesh Pund" } });
-    res.status(308).json({
-        success: true,
-    });
-}
-
-export const UpdateManyUser = async (req, res) => {
-    await User.updateMany({ password: "1243asdddddf" }, { $set: { password: "update Many Password" } });
-    res.status(308).json({
-        success: true,
-    });
-}
-
-// This is for login
-
-export const LoginUser = async (req, res) => {
-    const { name, email, password } = req.body;
-    const UserExist = await User.findOne({ email });
-
-    if (!UserExist) {
-        return res.status(404).json({
-            success: false,
-            message: "User Not Found"
-        });
-    }
-
-    if (UserExist.password != password) {
-        return res.status(404).json({
-            success: false,
-            message: "Incorrect Username or password"
-        });
-    }
-
-    res.status(202).json({
-        message: "User Resister succesfuly"
-    })
-
-
-}
-
-
-export const loginuser = async (req, res, next) => {
+export const register = async (req, res, next) => {
     try {
-        const { email, password } = req.body;
-
+        const { name, email, password } = req.body;
         const isUserExist = await User.findOne({ email });
 
-        if (!isUserExist)
-            return next(errorHandlers(404, "User Not Exixst"))
+        if (isUserExist) return next(errorHandler(400, "User already exist"));
 
+        const hashPass = bcryptjs.hashSync(password);
+        await User.create({ name, email, password: hashPass });
 
-        if (isUserExist.password != password)
-            return next(errorHandlers(400, "Incorrect username or password "));
-
-        const user_Id = isUserExist._id;
-        res.cookie("token", user_Id);
-        res.cookie("ganesh", user_Id);
-
-        res.status(202).json({
-            message: "User login succesfuly"
-        })
-
+        res.redirect("/user/loginuser");
     } catch (error) {
         next(error);
     }
 }
+
+export const login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        const isUserExist = await User.findOne({ email });
+
+        if (!isUserExist) return next(errorHandler(404, "User not exist"));
+
+        const valid = bcryptjs.compareSync(password, isUserExist.password);
+
+        if (!valid) return next(errorHandler(400, "Incorrect username or password"));
+
+        const token = jwt.sign({ _id: isUserExist._d }, process.env.JWT_COOKIE_SECREATE)
+
+        res.cookie("token", token).redirect("/user/loginHomePage");
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+export const logout = (req, res, next) => {
+    try {
+        res.clearCookie("token").render("index", {
+            path: "/user/loginuser",
+            btn: "login"
+        });
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const loginUser = (req, res) => {
+    res.render("login");
+}
+
+export const loginHomePage = (req, res) => {
+    res.render("index", {
+        path: "/user/logout",
+        btn: "logout"
+    });
+}
+
