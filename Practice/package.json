@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "echo \"node index.js",
-    "dev": "nodemon index.js",
-    "buid": "npm i"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "build": "npm i"
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,6 @@
     "ejs": "^3.1.10",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.3.1"
+    "mongoose": "^8.3.2"
   }
 }

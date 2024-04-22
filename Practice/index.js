@@ -1,35 +1,45 @@
-import express from "express"
-import { isAuthenticate } from "./middleware/auth.js";
-import { config } from "dotenv"
+import express from "express";
+import { config } from "dotenv";
 config({ path: "./config/.env" });
-import { MongoConnect } from "./config/data/data.mongo.js";
-import routes from "./router/router.user.js";
-import { errorMiddleware } from "./middleware/error.middleware.js";
+import bodyParser from "body-parser"
+import routes from "./routers/user.routes.js";
+import { mongoConnection } from "./config/data/data.js";
+import { errorMiddlewre } from "./middleware/middlewre.user.js";
 import cookieParser from "cookie-parser";
-import bodyParser from "body-parser";
+import { isAuthenticated } from "./middleware/Authentication.js";
 
-
-MongoConnect();
 const app = express();
-app.set("view engine", "ejs");
-app.set("views", "./views");
-app.use(express.json());
-app.use(bodyParser.urlencoded({ extended: false }))
+mongoConnection();
 app.use(cookieParser());
-app.use("/user", routes)
+app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/", isAuthenticate, (req, res) => {
+app.use("/user", routes);
+
+app.set("view engine", "ejs");
+
+
+app.get("/", isAuthenticated, (req, res) => {
     res.render("index", {
-        path: "/user/loginuser",
-        btn: "login"
+        path: "/login",
+        btn: "login",
+        name: req.body.name
     });
 });
 
-app.get("/registeruser", (req, res) => {
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+app.get("/register", (req, res) => {
     res.render("register");
 });
 
-app.use(errorMiddleware);
+app.get("/logout", (req, res) => {
+    res.clearCookie("token").render("login");
+});
+
+app.use(errorMiddlewre);
 app.listen(process.env.PORT, () => {
-    console.log("server is on http://localhost:4000");
+    console.log(`server is on http://localhost:${process.env.PORT}`);
 });
