@@ -49,6 +49,11 @@
         .login-box input[type="submit"]:hover {
             background-color: #0056b3;
         }
+
+        .err-password {
+            color: red;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        }
     </style>
 </head>
 
@@ -59,7 +64,11 @@
             <input type="text" name="email" placeholder="Username" required>
             <input type="password" name="password" placeholder="Password" required>
             <input type="submit" value="Login">
+            <p class="err-password">
+                <%=locals.message%>
+            </p>
         </form>
+
         <p>Dont have an account? <a href="/register">sign up</a></p>
     </div>
 </body>

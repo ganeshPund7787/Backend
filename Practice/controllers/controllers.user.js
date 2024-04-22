@@ -1,3 +1,4 @@
+import { render } from "ejs";
 import { User } from "../models/models.user.js";
 import { errorHandler } from "../utils/error.user.js";
 import bcryptjs from "bcryptjs"
@@ -26,7 +27,9 @@ export const loginUser = async (req, res, next) => {
 
     const validPassword = bcryptjs.compareSync(password, isUserExist.password);
 
-    if (!validPassword) return next(errorHandler(404, "Incorrect usernamr or password"));
+    if (!validPassword) return res.render("login", {
+        message: "Incorect username or password"
+    });
 
     const token = jwt.sign({ _id: isUserExist._id }, process.env.JWT_KEY)
     res.cookie("token", token).render("index", {
