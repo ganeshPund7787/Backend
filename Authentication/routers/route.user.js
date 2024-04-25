@@ -1,12 +1,14 @@
 import express from "express"
-import { loginGet, loginUser, logoutUser, registerGet, resisteruser } from "../controllers/controllers.user.js";
+import { deleteUser, getProfile, loginUser, logoutUser, resisteruser, updateUser } from "../controllers/controllers.user.js";
+import { isAutheticated } from "../controllers/Auth.js";
 
 const routes = express.Router();
 
-routes.get("/register", registerGet);
 routes.post("/register", resisteruser);
-routes.get("/login", loginGet);
 routes.post("/login", loginUser);
 routes.get("/logout", logoutUser);
+routes.get("/profile", isAutheticated, getProfile);
+routes.put('/update/:id', isAutheticated, updateUser)
+routes.delete('/delete/:id', isAutheticated, deleteUser)
 
 export default routes;

@@ -1,25 +1,17 @@
 import expresss from "express"
-import mongoose from "mongoose"
 import BodyParser from "body-parser"
+import routes from "./routes.js";
+import { NewUser } from "./data.js";
 
 const app = expresss();
 
-mongoose.connect("mongodb://127.0.0.1:27017/ganu").then(() => {
-    console.log("Database connected");
-})
-    .catch((e) => {
-        console.log(`The Error: ${e}`);
-    })
+app.use("/user", routes);
+app.use(expresss.json());
 
-const UserScheme = new mongoose.Schema({
-    name: String,
-    email: String,
-    password: String
-});
 
 app.use(BodyParser.urlencoded({ extended: false }));
 app.use(expresss.json());
-const NewUser = mongoose.model("NewUser", UserScheme);
+
 
 
 // //+++++++++++++++  Create User  +++++++++++++++ 
@@ -32,7 +24,6 @@ app.post("/API/v1/resister/user", async (req, res) => {
     // const delted = await NewUser.updateOne({name: "Jay Bajarangbali"});
     console.log(UserData);
 });
-app.listen(4000);
 
 // API:- http://localhost:4000/API/v1/resister/user
 
@@ -89,4 +80,6 @@ app.delete("/API/v3/delete/:id", async (req, res) => {
 
 
 
-
+app.listen(4000, () => {
+    console.log("Server is working on http://localhost:4000");
+});

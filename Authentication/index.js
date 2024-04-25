@@ -1,43 +1,29 @@
 import express from "express"
-import ejs from "ejs"
 import { config } from "dotenv"
 config({ path: "./config/.env" });
 import routes from "./routers/route.user.js";
-import { mongoConnect } from "./config/data/data.js";
+import { mongoConnect } from "./data/data.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
-import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import cors from 'cors'
 
 mongoConnect();
 const server = express();
-server.use(bodyParser.urlencoded({ extended: true }));
+server.use(cors({ options: [process.env.FRONTEND_URI], methods: ['GET', 'POST', 'PUT', 'DELETE'] }))
 server.use(express.json());
-server.set("view engine", "ejs");
-server.set("views", "./views");
+server.use(cookieParser());
+server.use("/user", routes);
 
-server.use("/api/user", routes);
-// server
 server.get('/', async (req, res, next) => {
     try {
-        res.render('index', {
-            path: "/api/user/login",
-            btn: "Login"
-        })
+        res.json({ message: "Home Page" });
     } catch (error) {
-        next(error)
+        next(error);
     }
 })
-
-server.get('/about', async (req, res, next) => {
-    try {
-        res.render('about')
-    } catch (error) {
-        next(error)
-    }
-})
-
 
 server.use(errorMiddleware);
 server.listen(process.env.PORT, () => {
-    console.log(`The server is on http:/localhost:${process.env.PORT}`);
+    console.log(`The server is on http://localhost:${process.env.PORT}`);
 });
 

@@ -3,7 +3,7 @@ import { config } from "dotenv";
 config({ path: "./config/.env" });
 import bodyParser from "body-parser"
 import routes from "./routers/user.routes.js";
-import { mongoConnection } from "./config/data/data.js";
+import { mongoConnection } from "./data/data.js";
 import { errorMiddlewre } from "./middleware/middlewre.user.js";
 import cookieParser from "cookie-parser";
 import { isAuthenticated } from "./middleware/Authentication.js";
@@ -17,7 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use("/user", routes);
 
 app.set("view engine", "ejs");
-
 
 app.get("/", isAuthenticated, (req, res) => {
     res.render("index", {
@@ -39,6 +38,20 @@ app.get("/logout", (req, res) => {
     res.clearCookie("token").render("login");
 });
 
+app.get("/profile", isAuthenticated, (req, res) => {
+    const { user } = req;
+
+    const { password, ...rest } = user._doc;
+
+    res.status(202).json({
+        msg: true,
+        rest
+    });
+});
+
+app.get("/update", isAuthenticated, (req, res) => {
+    res.render("update");
+});
 app.use(errorMiddlewre);
 app.listen(process.env.PORT, () => {
     console.log(`server is on http://localhost:${process.env.PORT}`);
