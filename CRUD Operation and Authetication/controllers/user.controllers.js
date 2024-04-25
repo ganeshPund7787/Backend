@@ -66,3 +66,45 @@ export const logoutUser = (req, res, next) => {
     }
 }
 
+export const userUpdate = async (req, res, next) => {
+    if (req.user.id !== req.params.id) {
+        return next(errorHandler(400, "You can only update your account"));
+    }
+
+    try {
+        if (req.body.email) {
+            const userExist = await User.findOne({ email: req.body.email });
+            if (userExist) return next(errorHandler(400, "Email already exist "));
+        }
+
+        if (req.body.password) {
+            req.body.password = bcryptjs.hashSync(req.body.password, 10);
+        }
+
+        const { id } = req.params;
+
+        const updatedUser = await User.findByIdAndUpdate(id, {
+            $set: {
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password
+            }
+        }, {
+            new: true
+        });
+
+        const { password, ...rest } = updatedUser._doc;
+        res.status(202).json({
+            message: "Update user successfuly",
+            rest
+        })
+    } catch (error) {
+        next(error);
+    }
+}
+
+export const deletedUser = async (req, res, next) => {
+    const { id } = req.params;
+    await User.findByIdAndDelete(id);
+    res.clearCookie("token").status(200).json({ message: "User deleted successfuly" })
+} 

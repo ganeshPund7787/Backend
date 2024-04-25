@@ -3,16 +3,11 @@ import { errorHandler } from "../utils/error.handler.js";
 import jwt from "jsonwebtoken"
 
 export const isAutheticated = async (req, res, next) => {
-    try {
-        const { token } = req.cookies;
-        if (!token) return next(errorHandler(400, "You should login first"));
+    const { token } = req.cookies;
+    if (!token) return next(errorHandler(400, "You should login first"));
 
-        const data = jwt.verify(token, process.env.JWT_SECREATE_KEY);
+    const data = jwt.verify(token, process.env.JWT_SECREATE_KEY);
 
-        req.user = await User.findById({ _id: data._id });
-
-    } catch (error) {
-        next(error);
-    }
+    req.user = await User.findById({ _id: data._id });
     next();
 }
