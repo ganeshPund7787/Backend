@@ -66,8 +66,10 @@ app.put("/API/v3/Update/:id", async (req, res) => {
 //+++++++++++ Delete User  ++++++++++++++
 
 app.delete("/API/v3/delete/:id", async (req, res) => {
-    const user = await NewUser.findById(req.params.id);
-    console.log(user);
+    const user = await NewUser.findByIdAndDelete(req.params.id);
+    res.status(200).json({
+        message: "user deleted succesfully"
+    });
 })
 
 

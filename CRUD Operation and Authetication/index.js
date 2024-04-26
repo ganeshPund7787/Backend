@@ -6,6 +6,14 @@ import { errorMiddleware } from "./middleware/error.middleware.js";
 import routes from "./routes/user.routes.js";
 import cookieParser from "cookie-parser";
 import { isAutheticated } from "./middleware/Autheticated.js";
+import cors from "cors"
+
+app.use(
+    cors({
+        options: [process.env.FORNTENDURL],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+    })
+)
 
 mongoConnection();
 const app = express();
