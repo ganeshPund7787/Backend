@@ -8,15 +8,16 @@ import cookieParser from "cookie-parser";
 import { isAutheticated } from "./middleware/Autheticated.js";
 import cors from "cors"
 
+mongoConnection();
+const app = express();
+
 app.use(
     cors({
         options: [process.env.FORNTENDURL],
         methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
     })
 )
-
-mongoConnection();
-const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use("/user", routes);
@@ -36,3 +37,8 @@ app.use(errorMiddleware);
 app.listen(process.env.PORT, () => {
     console.log(`server is on http://localhost:${process.env.PORT}`);
 });
+
+
+
+// multer :
+// it is middleware which is used to upload file any cloud storage. 

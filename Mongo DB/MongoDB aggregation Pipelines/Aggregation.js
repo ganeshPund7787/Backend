@@ -43,7 +43,7 @@
     }
 ]
 
-// Count this perticular model is famous in how many country
+// Count this perticular model is famous in how many country example: type, title, isActive
 [
     {
         $group: {
@@ -52,7 +52,7 @@
                 $sum: 1,
             },
         },
-    },
+    }
 ]
 
 // how many countries and find greaest count
@@ -181,7 +181,7 @@
     }
 ]
 
-// find the higest number value tags: value in the user 
+// find the higest number value tags: value in the user :: which tag is most of the time availabel
 [
     {
         $unwind: "$tags"
@@ -402,4 +402,8 @@
         }
     }
 ]
+
+
+
+
 
